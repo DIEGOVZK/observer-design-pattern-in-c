@@ -4,9 +4,9 @@
 ConcreteSubject subject;
 
 void setUp(void) {
-    subject.base.attach = attach;
-    subject.base.detach = detach;
-    subject.base.notify = notify;
+    subject.base.attach = (void (*)(struct Subject *, Observer *))attach;
+    subject.base.detach = (void (*)(struct Subject *, Observer *))detach;
+    subject.base.notify = (void (*)(const char *))notify;
     subject.observerCount = 0;
 }
 

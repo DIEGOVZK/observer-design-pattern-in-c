@@ -10,43 +10,44 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(UNITY)
 
-add_executable(executable
-    src/main.c
-)
-
-add_executable(testWordCounter
-    test/wordCounter.test.c
+set(SOURCES
     include/observer/observer.c
     include/wordsHandler/wordCounter.c
 )
 
-add_executable(testSubjectStructure
+set(TESTS
+    test/wordCounter.test.c
     test/subject.structure.test.c
-    include/observer/observer.c
 )
 
-target_link_libraries(executable PRIVATE unity)
-target_link_libraries(testWordCounter PRIVATE unity)
-target_link_libraries(testSubjectStructure PRIVATE unity)
+foreach(test ${TESTS})
+    get_filename_component(test_name ${test} NAME_WE)
+    add_executable(${test_name} ${test} ${SOURCES})
+    target_link_libraries(${test_name} PRIVATE unity)
+    target_include_directories(${test_name} PRIVATE
+        include/observer
+        include/wordsHandler
+        ${unity_SOURCE_DIR}/src
+    )
+endforeach()
 
+add_executable(executable src/main.c ${SOURCES})
+target_link_libraries(executable PRIVATE unity)
 target_include_directories(executable PRIVATE
     include/observer
     include/wordsHandler
 )
 
-target_include_directories(testWordCounter PRIVATE
-    include/observer
-    include/wordsHandler
-    ${unity_SOURCE_DIR}/src
-)
+set(TEST_COMMANDS)
+set(TEST_DEPENDENCIES)
 
-target_include_directories(testSubjectStructure PRIVATE
-    include/observer
-    ${unity_SOURCE_DIR}/src
-)
+foreach(test ${TESTS})
+    get_filename_component(test_name ${test} NAME_WE)
+    list(APPEND TEST_COMMANDS COMMAND ${CMAKE_COMMAND} --build . --target ${test_name} && ./${test_name})
+    list(APPEND TEST_DEPENDENCIES ${test_name})
+endforeach()
 
 add_custom_target(run_tests
-    COMMAND ${CMAKE_COMMAND} --build . --target testWordCounter && ./testWordCounter
-    COMMAND ${CMAKE_COMMAND} --build . --target testSubjectStructure && ./testSubjectStructure
-    DEPENDS testWordCounter testSubjectStructure
+    ${TEST_COMMANDS}
+    DEPENDS ${TEST_DEPENDENCIES}
 )

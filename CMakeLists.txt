@@ -19,6 +19,7 @@ set(TESTS
     test/wordCounter.test.c
     test/subject.structure.test.c
     test/observer.structure.test.c
+    test/observer.functionalities.test.c
 )
 
 foreach(test ${TESTS})

@@ -22,7 +22,8 @@ target_link_libraries(executable PRIVATE unity)
 target_link_libraries(test PRIVATE unity)
 
 target_include_directories(executable PRIVATE
-    ${unity_SOURCE_DIR}/src
+    src
+    include    
     include/observer
     include/wordsHandler
 )

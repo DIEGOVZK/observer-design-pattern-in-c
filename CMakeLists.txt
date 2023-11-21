@@ -14,10 +14,26 @@ add_executable(executable
     src/main.c
 )
 
+add_executable(test
+    test/subject.structure.test
+)
+
 target_link_libraries(executable PRIVATE unity)
+target_link_libraries(test PRIVATE unity)
+
 target_include_directories(executable PRIVATE
-    src
     ${unity_SOURCE_DIR}/src
     include/observer
     include/wordsHandler
+)
+
+target_include_directories(test PRIVATE
+    ${unity_SOURCE_DIR}/src
+    include/observer
+    include/wordsHandler
+)
+
+add_custom_target(run_tests
+    COMMAND test
+    DEPENDS test
 )

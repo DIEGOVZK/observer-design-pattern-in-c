@@ -1,7 +1,14 @@
 #!/bin/bash
 
-# Run tests from the build directory
+# Create build directory at the project root
+mkdir -p ../build
 cd ../build
 
-# Run the tests executable
-./tests
+# Run CMake from the build directory
+cmake ..
+
+# Build the project using Makefiles
+make
+
+# Run the tests
+make run_tests

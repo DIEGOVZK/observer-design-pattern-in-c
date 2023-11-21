@@ -14,26 +14,39 @@ add_executable(executable
     src/main.c
 )
 
-add_executable(test
+add_executable(testWordCounter
+    test/wordCounter.test.c
+    include/observer/observer.c
+    include/wordsHandler/wordCounter.c
+)
+
+add_executable(testSubjectStructure
     test/subject.structure.test.c
     include/observer/observer.c
 )
 
 target_link_libraries(executable PRIVATE unity)
-target_link_libraries(test PRIVATE unity)
+target_link_libraries(testWordCounter PRIVATE unity)
+target_link_libraries(testSubjectStructure PRIVATE unity)
 
 target_include_directories(executable PRIVATE
     include/observer
     include/wordsHandler
 )
 
-target_include_directories(test PRIVATE
+target_include_directories(testWordCounter PRIVATE
     include/observer
     include/wordsHandler
     ${unity_SOURCE_DIR}/src
 )
 
+target_include_directories(testSubjectStructure PRIVATE
+    include/observer
+    ${unity_SOURCE_DIR}/src
+)
+
 add_custom_target(run_tests
-    COMMAND test
-    DEPENDS test
+    COMMAND ${CMAKE_COMMAND} --build . --target testWordCounter && ./testWordCounter
+    COMMAND ${CMAKE_COMMAND} --build . --target testSubjectStructure && ./testSubjectStructure
+    DEPENDS testWordCounter testSubjectStructure
 )

@@ -4,48 +4,31 @@
 #include "iobserver.h"
 #include "isubject.h"
 
-void notify(Subject *subject, const char *event)
-{
-    ConcreteSubject *concreteSubject = (ConcreteSubject *)subject;
+/**
+ * @brief Notifies the observers of a subject.
+ * @param subject The subject that will notify the observers.
+ * @param event The event that will be sent to the observers.
+ */
+void notify(Subject *subject, const char *event);
 
-    for (int i = 0; i < concreteSubject->observerCount; ++i)
-    {
-        concreteSubject->observers[i]->update(event);
-    }
-}
+/**
+ * @brief Updates the observer with an event.
+ * @param event The event that will be sent to the observer.
+ */
+void update(const char *event);
 
-void update(const char *event)
-{
-    printf("Observer received event: %s\n", event);
-}
+/**
+ * @brief Attaches an observer to a subject.
+ * @param subject The subject that will attach the observer.
+ * @param observer The observer that will be attached to the subject.
+ */
+void attach(Subject *subject, Observer *observer);
 
-void attach(Subject *subject, Observer *observer)
-{
-    ConcreteSubject *concreteSubject = (ConcreteSubject *)subject;
-
-    if (concreteSubject->observerCount < 10)
-    {
-        concreteSubject->observers[concreteSubject->observerCount++] = observer;
-    }
-}
-
-void detach(Subject *subject, Observer *observer)
-{
-    ConcreteSubject *concreteSubject = (ConcreteSubject *)subject;
-
-    for (int i = 0; i < concreteSubject->observerCount; ++i)
-    {
-        if (concreteSubject->observers[i] == observer)
-        {
-            // Remove observer by shifting elements
-            for (int j = i; j < concreteSubject->observerCount - 1; ++j)
-            {
-                concreteSubject->observers[j] = concreteSubject->observers[j + 1];
-            }
-            concreteSubject->observerCount--;
-            break;
-        }
-    }
-}
+/**
+ * @brief Detaches an observer from a subject.
+ * @param subject The subject that will detach the observer.
+ * @param observer The observer that will be detached from the subject.
+ */
+void detach(Subject *subject, Observer *observer);
 
 #endif // OBSERVER_H

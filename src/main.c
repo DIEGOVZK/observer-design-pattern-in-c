@@ -4,7 +4,6 @@
 
 #include "wordCounter.h"
 #include "observer.h"
-#include "subject.h"
 
 int main()
 {

@@ -1,4 +1,6 @@
 #include "wordCounter.h"
+#include <stdio.h>
+#include <ctype.h>
 
 void countWords(Subject *subject, const char *sentence)
 {

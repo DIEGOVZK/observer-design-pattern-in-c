@@ -8,17 +8,14 @@ FetchContent_Declare(
     GIT_TAG        v2.5.2
 )
 
-if(NOT UNITY_POPULATED)
-    FetchContent_Populate(UNITY)
-    add_subdirectory(build/_deps/unity-src build/_deps/unity-build)
-endif()
+FetchContent_MakeAvailable(UNITY)
 
 add_executable(executable
     src/main.c
 )
 
-target_link_libraries(executable PRIVATE UNITY)
+target_link_libraries(executable PRIVATE unity)
 target_include_directories(executable PRIVATE
     include
-    build/_deps/unity-src/src
+    ${unity_SOURCE_DIR}/src
 )

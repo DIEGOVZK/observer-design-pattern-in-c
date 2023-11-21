@@ -19,6 +19,12 @@ int countTotalWords(const char *sentence)
 {
     int totalWords = 0;
     int isWord = 0;
+
+    if (sentence == NULL)
+    {
+        return 0;
+    }
+    
     for (const char *ptr = sentence; *ptr; ++ptr)
     {
         if (isalpha((unsigned char)*ptr))

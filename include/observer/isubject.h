@@ -1,4 +1,7 @@
-#include "observer.h"
+#ifndef ISUBJECT_H
+#define ISUBJECT_H
+
+#include "iobserver.h"
 
 /**
  * @brief Subject (Observable) Interface
@@ -25,3 +28,5 @@ typedef struct
     int observerCount;
     Observer *observers[10];
 } ConcreteSubject;
+
+#endif //ISUBJECT_H

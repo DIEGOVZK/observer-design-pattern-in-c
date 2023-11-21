@@ -1,17 +1,15 @@
-include(FetchContent)
+cmake_minimum_required(VERSION 3.12)
+project(observer-design-pattern-in-c C)
 
-# Declare the external library
+include(FetchContent)
 FetchContent_Declare(
   Unity
   GIT_REPOSITORY https://github.com/ThrowTheSwitch/Unity.git
   GIT_TAG        v2.5.2
 )
 
-# Retrieve properties of the external library
 FetchContent_GetProperties(Unity)
-
-# Check if the library has already been populated
 if(NOT Unity_POPULATED)
   FetchContent_Populate(Unity)
-  add_subdirectory(${Unity_SOURCE_DIR} ${Unity_BINARY_DIR} EXCLUDE_FROM_ALL)
+  add_subdirectory(${Unity_SOURCE_DIR} ${Unity_BINARY_DIR})
 endif()

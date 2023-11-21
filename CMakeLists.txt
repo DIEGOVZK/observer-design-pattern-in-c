@@ -16,6 +16,8 @@ add_executable(executable
 
 target_link_libraries(executable PRIVATE unity)
 target_include_directories(executable PRIVATE
-    include
+    src
     ${unity_SOURCE_DIR}/src
+    include/observer
+    include/wordsHandler
 )

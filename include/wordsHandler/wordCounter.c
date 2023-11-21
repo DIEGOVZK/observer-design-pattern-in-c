@@ -25,7 +25,7 @@ int countTotalWords(const char *sentence)
         {
             isWord = 1;
         }
-        else
+        else if (isspace((unsigned char)*ptr) || *(ptr + 1) == '\0')
         {
             if (isWord)
             {
@@ -33,10 +33,6 @@ int countTotalWords(const char *sentence)
                 isWord = 0;
             }
         }
-    }
-    if (isWord)
-    {
-        totalWords++;
     }
     return totalWords;
 }

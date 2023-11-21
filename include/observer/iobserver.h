@@ -1,6 +1,8 @@
 #ifndef OBSERVER_IOBSERVER_H
 #define OBSERVER_IOBSERVER_H
 
+struct Observer;  // Forward declaration
+
 /**
  * @brief Observer Interface
  * @param update Function to update the Observer with an event. Takes the event as a string.

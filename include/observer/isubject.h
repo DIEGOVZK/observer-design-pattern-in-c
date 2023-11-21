@@ -3,6 +3,8 @@
 
 #include "iobserver.h"
 
+struct Subject;  // Forward declaration
+
 /**
  * @brief Subject (Observable) Interface
  * @param attach Function to attach an Observer to this Subject. Takes a pointer to the Subject and the Observer to attach.

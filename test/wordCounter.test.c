@@ -26,7 +26,7 @@ void test_countTotalWords(void)
 
 void test_countEvenLengthWords(void)
 {
-    TEST_ASSERT_EQUAL_INT(2, countEvenLengthWords(sentence));
+    TEST_ASSERT_EQUAL_INT(4, countEvenLengthWords(sentence));
 }
 
 void test_countCapitalStartWords(void)

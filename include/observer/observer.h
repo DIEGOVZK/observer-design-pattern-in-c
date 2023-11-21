@@ -1,17 +1,51 @@
-/**
- * @brief Observer Interface
- * @param update Function to update the Observer with an event. Takes the event as a string.
- */
-typedef struct
-{
-    void (*update)(const char *event);
-} Observer;
+#ifndef OBSERVER_H
+#define OBSERVER_H
 
-/**
- * @brief Concrete implementation of the Observer interface.
- * @param base The base Observer interface this struct is built on.
- */
-typedef struct
+#include "iobserver.h"
+#include "isubject.h"
+
+void notify(Subject *subject, const char *event)
 {
-    Observer base;
-} ConcreteObserver;
+    ConcreteSubject *concreteSubject = (ConcreteSubject *)subject;
+
+    for (int i = 0; i < concreteSubject->observerCount; ++i)
+    {
+        concreteSubject->observers[i]->update(event);
+    }
+}
+
+void update(const char *event)
+{
+    printf("Observer received event: %s\n", event);
+}
+
+void attach(Subject *subject, Observer *observer)
+{
+    ConcreteSubject *concreteSubject = (ConcreteSubject *)subject;
+
+    if (concreteSubject->observerCount < 10)
+    {
+        concreteSubject->observers[concreteSubject->observerCount++] = observer;
+    }
+}
+
+void detach(Subject *subject, Observer *observer)
+{
+    ConcreteSubject *concreteSubject = (ConcreteSubject *)subject;
+
+    for (int i = 0; i < concreteSubject->observerCount; ++i)
+    {
+        if (concreteSubject->observers[i] == observer)
+        {
+            // Remove observer by shifting elements
+            for (int j = i; j < concreteSubject->observerCount - 1; ++j)
+            {
+                concreteSubject->observers[j] = concreteSubject->observers[j + 1];
+            }
+            concreteSubject->observerCount--;
+            break;
+        }
+    }
+}
+
+#endif // OBSERVER_H
